@@ -10,6 +10,13 @@ public class PointXY {
         Y = y;
     }
 
+    public void setX(double x) {
+        X = x;
+    }
+    public void setY(double y) {
+        Y = y;
+    }
+
     public double getX() {
         return X;
     }
@@ -17,5 +24,10 @@ public class PointXY {
         return Y;
     }
 
-
+    public String XtoString(){
+        return String.valueOf(X);
+    }
+    public String YtoString(){
+        return String.valueOf(Y);
+    }
 }
