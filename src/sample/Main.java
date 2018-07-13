@@ -18,7 +18,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         primaryStage.setTitle("Compute PBP");
-        primaryStage.setScene(new Scene(root, 300, 500));
+        primaryStage.setScene(new Scene(root, 288, 530));
         primaryStage.show();
 
 
@@ -29,9 +29,10 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch(args);
 
-        PointXY p1 = new PointXY(0,0);
-        PointXY p2 = new PointXY(10,10);
+        PointNE p1 = new PointNE(0,0);
+        PointNE p2 = new PointNE(10,0);
         System.out.println(CoordintesComputation.DistanceBtwPoints(p1,p2));
+        System.out.println(CoordintesComputation.Azimuth(p1,p2));
 
 
 

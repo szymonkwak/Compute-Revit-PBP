@@ -3,7 +3,6 @@ package sample;
 import javafx.scene.control.*;
 
 
-
 public class Controller {
 
 
@@ -14,12 +13,10 @@ public class Controller {
         return Double.parseDouble(txtField.getText());
     }
 
-    PointXY local1 = new PointXY(0,0);
-    PointXY local2 = new PointXY(0,0);
+
 
     public void btnOnClick(){
-        local1.setX(TextFieldToDouble(txtLocalN1));
-        txtPBPN.setText(local1.XtoString());
+
 
 
    }
