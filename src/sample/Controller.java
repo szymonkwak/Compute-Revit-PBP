@@ -1,17 +1,14 @@
 package sample;
 
-import javafx.geometry.Pos;
 import javafx.scene.control.*;
-
-
 import javax.swing.*;
-import javax.xml.soap.Text;
 
 
 public class Controller {
 
    //region Variables
    public Button btnCompute;
+   public Label labelP3;
    public TextField txtLocalN1, txtLocalE1,
                     txtLocalN2, txtLocalE2,
                     txtLocalN3, txtLocalE3,
@@ -37,29 +34,21 @@ public class Controller {
         else return str;
     }
 
-    private double textFieldToDouble (TextField txtField){
-        return Double.parseDouble(txtField.getText());
+     private void setPointCoordinatesFromTextFieldData(PointNE point, TextField txtNorthing, TextField txtEasting){
+        point.setN(Double.parseDouble(txtNorthing.getText()));
+        point.setE(Double.parseDouble(txtEasting.getText()));
     }
 
-    private void setPointCoordinatesFromTextFieldData(PointNE point, TextField txtNorthing, TextField txtEasting){
-        point.setN(textFieldToDouble(txtNorthing));
-        point.setE(textFieldToDouble(txtEasting));
-    }
-
-    //To można jakoś poprawić
     public void showWarning(){
         JPanel jPanel = new JPanel();
         JOptionPane.showMessageDialog(jPanel,"Nieprawidłowe dane wejściowe","Błąd",JOptionPane.ERROR_MESSAGE);
     }
 
 
-
-
-
     public void btnOnClick(){
 
-        txtPBPN.clear(); txtPBPE.clear(); txtPBPAngle.clear();
-        //region Compute PBP_N, PBP_E, PBP_Angle
+        txtPBPN.clear(); txtPBPE.clear(); txtPBPAngle.clear(); labelP3.setText("");
+
         try {
             setPointCoordinatesFromTextFieldData(loc1, txtLocalN1, txtLocalE1);
             setPointCoordinatesFromTextFieldData(loc2, txtLocalN2, txtLocalE2);
@@ -79,30 +68,26 @@ public class Controller {
             double E_PBP = CoordintesComputation.computeCoordinateE(glob1,CoordintesComputation.distanceBtwPoints(loc1,0,0),p1_PBP_AzimRad);
             txtPBPN.setText(showResult(N_PBP));
             txtPBPE.setText(showResult(E_PBP));
+            PointNE PBP = new PointNE(N_PBP,E_PBP);
+
+            //region Verification on point 3
+            try {
+                setPointCoordinatesFromTextFieldData(loc3, txtLocalN3, txtLocalE3);
+                setPointCoordinatesFromTextFieldData(glob3, txtGlobalN3, txtGlobalE3);
+
+                double g3N = CoordintesComputation.computeCoordinateN(PBP,CoordintesComputation.distanceBtwPoints(PBP,loc3),CoordintesComputation.Azimuth(PBP,loc3));
+                double g3E = CoordintesComputation.computeCoordinateE(PBP,CoordintesComputation.distanceBtwPoints(PBP,loc3),CoordintesComputation.Azimuth(PBP,loc3));
+
+                double p3distDiff = CoordintesComputation.distanceBtwPoints(glob3,g3N,g3E);
+                labelP3.setText(showResult(p3distDiff));
+
+            } catch (NumberFormatException e){}
+            //endregion
 
         } catch (NumberFormatException e){
             showWarning();
         }
-        //endregion
-
-
-        //region Verification on point 3
-        try {
-            setPointCoordinatesFromTextFieldData(loc3, txtLocalN3, txtLocalE3);
-            setPointCoordinatesFromTextFieldData(glob3, txtGlobalN3, txtGlobalE3);
-
-
-        } catch (NumberFormatException e){}
-        //endregion
-
-
-
-        //Ustawić przecinek zamiast kropki-done
-        //Kiedy błędne dane nie działa-done
-        //Rozszerzyć txtField z Kątem
-        //Sprawdzić czy dobrze liczy na prawdziwym przypadku
 
     }
-
 
 }

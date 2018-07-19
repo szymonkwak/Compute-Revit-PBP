@@ -23,10 +23,4 @@ public class PointNE {
         return E;
     }
 
-    public String NtoString (){
-        return String.valueOf(N);
-    }
-    public String EtoString (){
-        return String.valueOf(E);
-    }
 }

@@ -143,6 +143,11 @@
             <Font size="14.0" />
          </font>
       </TextField>
-      <Label layoutX="18.0" layoutY="501.0" text="Różnica współrzędnych na punkcie 3:" />
+      <Label layoutX="32.0" layoutY="501.0" text="Różnica współrzędnych na punkcie 3:" />
+      <Label fx:id="labelP3" layoutX="217.0" layoutY="501.0" text="Label">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
    </children>
 </Pane>
