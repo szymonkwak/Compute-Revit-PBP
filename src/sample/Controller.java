@@ -55,17 +55,17 @@ public class Controller {
             setPointCoordinatesFromTextFieldData(glob1, txtGlobalN1, txtGlobalE1);
             setPointCoordinatesFromTextFieldData(glob2, txtGlobalN2, txtGlobalE2);
 
-            double locAzim = CoordintesComputation.Azimuth(loc1,loc2);
-            double globAzim = CoordintesComputation.Azimuth(glob1,glob2);
+            double locAzim = CoordCompt.azimuth(loc1,loc2);
+            double globAzim = CoordCompt.azimuth(glob1,glob2);
             double PBPAngle = globAzim - locAzim ;
             txtPBPAngle.setText(showResult(PBPAngle));
 
-            double p1_00_Azim = CoordintesComputation.Azimuth(loc1,0,0);
-            double p1_PBP_AzimRad = (( p1_00_Azim + PBPAngle ) / 360 ) * ( 2 * Math.PI );
+            double p1_00_Azim = CoordCompt.azimuth(loc1,0,0);
+            double p1_PBP_Azim = p1_00_Azim + PBPAngle;
 
-            // N = N(p1) + distance(p1 -> 0,0)*cos(Azimuth(p1 -> 0,0)
-            double N_PBP = CoordintesComputation.computeCoordinateN(glob1,CoordintesComputation.distanceBtwPoints(loc1,0,0),p1_PBP_AzimRad);
-            double E_PBP = CoordintesComputation.computeCoordinateE(glob1,CoordintesComputation.distanceBtwPoints(loc1,0,0),p1_PBP_AzimRad);
+            // N = N(p1) + distance(p1 -> 0,0)*cos(azimuth(p1 -> 0,0)
+            double N_PBP = CoordCompt.computeCoordN(glob1,CoordCompt.distanceBtwPoints(loc1,0,0),p1_PBP_Azim);
+            double E_PBP = CoordCompt.computeCoordE(glob1,CoordCompt.distanceBtwPoints(loc1,0,0),p1_PBP_Azim);
             txtPBPN.setText(showResult(N_PBP));
             txtPBPE.setText(showResult(E_PBP));
             PointNE PBP = new PointNE(N_PBP,E_PBP);
@@ -75,10 +75,10 @@ public class Controller {
                 setPointCoordinatesFromTextFieldData(loc3, txtLocalN3, txtLocalE3);
                 setPointCoordinatesFromTextFieldData(glob3, txtGlobalN3, txtGlobalE3);
 
-                double g3N = CoordintesComputation.computeCoordinateN(PBP,CoordintesComputation.distanceBtwPoints(PBP,loc3),CoordintesComputation.Azimuth(PBP,loc3));
-                double g3E = CoordintesComputation.computeCoordinateE(PBP,CoordintesComputation.distanceBtwPoints(PBP,loc3),CoordintesComputation.Azimuth(PBP,loc3));
+                double g3N = CoordCompt.computeCoordN(PBP,CoordCompt.distanceBtwPoints(loc3,0,0),CoordCompt.azimuth(0,0,loc3) + PBPAngle);
+                double g3E = CoordCompt.computeCoordE(PBP,CoordCompt.distanceBtwPoints(loc3,0,0),CoordCompt.azimuth(0,0,loc3) + PBPAngle);
 
-                double p3distDiff = CoordintesComputation.distanceBtwPoints(glob3,g3N,g3E);
+                double p3distDiff = CoordCompt.distanceBtwPoints(glob3,g3N,g3E);
                 labelP3.setText(showResult(p3distDiff));
 
             } catch (NumberFormatException e){}

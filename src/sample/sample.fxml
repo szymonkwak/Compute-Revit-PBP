@@ -144,7 +144,7 @@
          </font>
       </TextField>
       <Label layoutX="32.0" layoutY="501.0" text="Różnica współrzędnych na punkcie 3:" />
-      <Label fx:id="labelP3" layoutX="217.0" layoutY="501.0" text="Label">
+      <Label fx:id="labelP3" layoutX="217.0" layoutY="501.0" text="">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
