@@ -34,7 +34,7 @@ public class Controller {
         else return str;
     }
 
-     private void setPointCoordinatesFromTextFieldData(PointNE point, TextField txtNorthing, TextField txtEasting){
+    private void setPointCoordinatesFromTextFieldData(PointNE point, TextField txtNorthing, TextField txtEasting){
         point.setN(Double.parseDouble(txtNorthing.getText()));
         point.setE(Double.parseDouble(txtEasting.getText()));
     }
@@ -58,7 +58,7 @@ public class Controller {
             double locAzim = CoordCompt.azimuth(loc1,loc2);
             double globAzim = CoordCompt.azimuth(glob1,glob2);
             double PBPAngle = globAzim - locAzim ;
-            txtPBPAngle.setText(showResult(PBPAngle));
+            txtPBPAngle.setText(showResult(CoordCompt.radToDegrees(PBPAngle)));
 
             double p1_00_Azim = CoordCompt.azimuth(loc1,0,0);
             double p1_PBP_Azim = p1_00_Azim + PBPAngle;
